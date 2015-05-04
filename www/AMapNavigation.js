@@ -1,7 +1,7 @@
 var exec = require('cordova/exec');
 
-exports.exec = function(arg0, success, error) {
-    exec(success, error, "AMapNavigation", "coolMethod", [arg0]);
+exports.exec = function(action, args, success, error) {
+    exec(success, error, "AMapNavigation", action, [args]);
 };
 
 exports.navigation = function(startPoint, endPoint, successCallback, errorCallback){
