@@ -1,28 +1,224 @@
 /********* AMapNavigation.m Cordova Plugin Implementation *******/
 
+#import <UIKit/UIKit.h>
 #import <Cordova/CDV.h>
+#import <AMapNaviKit/AMapNaviKit.h>
+#import <AMapNaviKit/MAMapKit.h>
 
-@interface AMapNavigation : CDVPlugin {
-  // Member variables go here.
+
+@interface AMapNavigation : CDVPlugin <MAMapViewDelegate, AMapNaviViewControllerDelegate, AMapNaviViewControllerDelegate>{
+    // Member variables go here.
+    NSString* callbackId;
 }
 
-- (void)coolMethod:(CDVInvokedUrlCommand*)command;
+@property (nonatomic, strong)NSString*                  amapApiKey;
+@property (nonatomic, strong)MAMapView*                 mapView;
+@property (nonatomic, strong)AMapNaviManager*           naviManager;
+@property (nonatomic, strong)AMapNaviViewController*    naviViewController;
+@property (nonatomic, strong)AMapNaviPoint*             startPoint;
+@property (nonatomic, strong)AMapNaviPoint*             endPoint;
+
+- (void)navigation:(CDVInvokedUrlCommand*)command;
+- (void)returnSuccess;
+- (void)returnError:(NSString*) message;
 @end
 
 @implementation AMapNavigation
 
-- (void)coolMethod:(CDVInvokedUrlCommand*)command
+- (void)navigation:(CDVInvokedUrlCommand*)command
 {
-    CDVPluginResult* pluginResult = nil;
-    NSString* echo = [command.arguments objectAtIndex:0];
+    callbackId = command.callbackId;
+    [AMapNaviServices sharedServices].apiKey = [self amapApiKey];
+    [MAMapServices sharedServices].apiKey = [self amapApiKey];
+    
+    CGFloat startLng = [[command.arguments objectAtIndex:0] doubleValue];
+    CGFloat startLat = [[command.arguments objectAtIndex:1] doubleValue];
+    CGFloat endLng = [[command.arguments objectAtIndex:2] doubleValue];
+    CGFloat endLat = [[command.arguments objectAtIndex:3] doubleValue];
+    
+    [self initMapView];
+    [self initManager];
+    [self initNaviViewController];
+    
+    AMapNaviPoint* startPoint = [AMapNaviPoint locationWithLatitude:startLat longitude:startLng];
+    AMapNaviPoint* endPoint = [AMapNaviPoint locationWithLatitude:endLat longitude:endLng];
+    [self calculateRoute:startPoint endPoint:endPoint];
+    
+    
+    //    CDVPluginResult* pluginResult = nil;
+    //    NSString* echo = [command.arguments objectAtIndex:0];
+    //
+    //    if (echo != nil && [echo length] > 0) {
+    //        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
+    //    } else {
+    //        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    //    }
+    //
+    //    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 
-    if (echo != nil && [echo length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
-    } else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+- (void)returnSuccess{
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
+- (void)returnError:(NSString *)message{
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:message];
+    
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
+- (NSString*)amapApiKey{
+    if(!_amapApiKey){
+        CDVViewController* viewController = (CDVViewController*)self.viewController;
+        _amapApiKey = [viewController.settings objectForKey:@"amapapikey"];
     }
+    return _amapApiKey;
+}
 
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)initMapView{
+    if(self.mapView == nil){
+        self.mapView = [[MAMapView alloc] initWithFrame:self.webView.bounds];
+    }
+    self.mapView.frame = self.webView.bounds;
+    self.mapView.delegate = self;
+}
+
+- (void)initManager{
+    if(self.naviManager == nil){
+        _naviManager = [[AMapNaviManager alloc] init];
+        [_naviManager setDelegate:self];
+    }
+}
+
+- (void)initNaviViewController{
+    if(_naviViewController == nil){
+        _naviViewController = [[AMapNaviViewController alloc] initWithMapView:self.mapView delegate:self];
+    }
+}
+
+- (void)calculateRoute:(AMapNaviPoint*)startPoint endPoint:(AMapNaviPoint*)endPoint{
+    NSArray* startPoints = @[startPoint];
+    NSArray* endPoints = @[endPoint];
+    
+//    [self.naviManager calculateDriveRouteWithEndPoints:endPoints wayPoints:nil drivingStrategy:0];
+    [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
+}
+
+
+- (void)AMapNaviManager:(AMapNaviManager *)naviManager didPresentNaviViewController:(UIViewController *)naviViewController
+{
+    [self.naviManager startGPSNavi];
+}
+
+
+- (void)AMapNaviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager
+{
+    // 初始化语音引擎
+    [self.naviManager presentNaviViewController:self.naviViewController animated:YES];
+}
+
+
+- (void)AMapNaviManager:(AMapNaviManager *)naviManager onCalculateRouteFailure:(NSError *)error
+{
+//    [self AMapNaviManager:naviManager onCalculateRouteFailure:error];
+    [self returnError:[NSString stringWithFormat:@"规划路径错误:%@", error]];
+}
+
+
+
+#pragma mark - AManNaviViewController Delegate
+
+- (void)AMapNaviViewControllerCloseButtonClicked:(AMapNaviViewController *)naviViewController
+{
+    [self.naviManager stopNavi];
+    [self.naviManager dismissNaviViewControllerAnimated:YES];
+    [self returnSuccess];
+}
+
+
+- (void)AMapNaviViewControllerMoreButtonClicked:(AMapNaviViewController *)naviViewController
+{
+    if (self.naviViewController.viewShowMode == AMapNaviViewShowModeCarNorthDirection)
+    {
+        self.naviViewController.viewShowMode = AMapNaviViewShowModeMapNorthDirection;
+    }
+    else
+    {
+        self.naviViewController.viewShowMode = AMapNaviViewShowModeCarNorthDirection;
+    }
+}
+
+
+- (void)AMapNaviViewControllerTrunIndicatorViewTapped:(AMapNaviViewController *)naviViewController
+{
+    [self.naviManager readNaviInfoManual];
+}
+
+
+- (void)AMapNaviManager:(AMapNaviManager *)naviManager error:(NSError *)error
+{
+    [self returnError:[NSString stringWithFormat:@"error:%@", error]];
+}
+
+- (void)AMapNaviManager:(AMapNaviManager *)naviManager didDismissNaviViewController:(UIViewController *)naviViewController
+{
+    NSLog(@"didDismissNaviViewController");
+}
+
+
+- (void)AMapNaviManagerNeedRecalculateRouteForTrafficJam:(AMapNaviManager *)naviManager
+{
+    NSLog(@"NeedReCalculateRouteForTrafficJam");
+}
+
+- (void)AMapNaviManagerNeedRecalculateRouteForYaw:(AMapNaviManager *)naviManager
+{
+    NSLog(@"NeedReCalculateRouteForYaw");
+}
+
+- (void)AMapNaviManager:(AMapNaviManager *)naviManager didStartNavi:(AMapNaviMode)naviMode
+{
+    NSLog(@"didStartNavi");
+}
+
+- (void)AMapNaviManagerDidEndEmulatorNavi:(AMapNaviManager *)naviManager
+{
+    NSLog(@"DidEndEmulatorNavi");
+}
+
+- (void)AMapNaviManagerOnArrivedDestination:(AMapNaviManager *)naviManager
+{
+    NSLog(@"OnArrivedDestination");
+}
+
+- (void)AMapNaviManager:(AMapNaviManager *)naviManager onArrivedWayPoint:(int)wayPointIndex
+{
+    NSLog(@"onArrivedWayPoint");
+}
+
+- (void)AMapNaviManager:(AMapNaviManager *)naviManager didUpdateNaviLocation:(AMapNaviLocation *)naviLocation
+{
+    //    NSLog(@"didUpdateNaviLocation");
+}
+
+- (BOOL)AMapNaviManagerGetSoundPlayState:(AMapNaviManager *)naviManager
+{
+    //    NSLog(@"GetSoundPlayState");
+    
+    return 0;
+}
+
+- (void)AMapNaviManager:(AMapNaviManager *)naviManager playNaviSoundString:(NSString *)soundString soundStringType:(AMapNaviSoundType)soundStringType
+{
+    NSLog(@"playNaviSoundString:{%ld:%@}", (long)soundStringType, soundString);
+}
+
+- (void)AMapNaviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager
+{
+    NSLog(@"DidUpdateTrafficStatuses");
 }
 
 @end
+
