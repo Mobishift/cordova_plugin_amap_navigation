@@ -1,6 +1,6 @@
 var exec = require('cordova/exec');
 
-exports.coolMethod = function(arg0, success, error) {
+exports.exec = function(arg0, success, error) {
     exec(success, error, "AMapNavigation", "coolMethod", [arg0]);
 };
 
