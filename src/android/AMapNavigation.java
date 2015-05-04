@@ -15,8 +15,12 @@ public class AMapNavigation extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("coolMethod")) {
-            String message = args.getString(0);
-            this.coolMethod(message, callbackContext);
+            //String message = args.getString(0);
+            //this.coolMethod(message, callbackContext);
+
+            Intent intent = new Intent();
+            intent.setClass(this.cordova.getActivity().getApplicationContext(), MainActivity.class);
+
             return true;
         }
         return false;
