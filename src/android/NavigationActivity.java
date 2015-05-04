@@ -33,18 +33,20 @@ public class NavigationActivity extends Activity implements
     private int mCode=-1;
 
     //起点终点
-    private NaviLatLng mNaviStart;
-    private NaviLatLng mNaviEnd;
+    private NaviLatLng mNaviStart = new NaviLatLng(39.989614, 116.481763);
+	private NaviLatLng mNaviEnd = new NaviLatLng(39.983456, 116.3154950);
     //起点终点列表
     private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
     private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent();
+        Log.i("result","onCreate");
+        AMapNavi.getInstance(this).setAMapNaviListener(this);
+        Intent intent = getIntent();
         mNaviStart = new NaviLatLng(Float.parseFloat(intent.getStringExtra("NaviStartLat")),Float.parseFloat(intent.getStringExtra("NaviStartLng")));
         mNaviEnd = new NaviLatLng(Float.parseFloat(intent.getStringExtra("NaviEndLat")),Float.parseFloat(intent.getStringExtra("NaviEndLng")));
-
+        Log.i("result","end");
         LinearLayout l = new LinearLayout(this);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
@@ -58,8 +60,8 @@ public class NavigationActivity extends Activity implements
 
         setContentView(l);
 
-        Bundle bundle = getIntent().getExtras();
-        processBundle(bundle);
+        //Bundle bundle = getIntent().getExtras();
+        //processBundle(bundle);
         init(savedInstanceState);
 
     }
@@ -96,12 +98,14 @@ public class NavigationActivity extends Activity implements
     @Override
     public void onCalculateRouteSuccess() {
         if (mIsEmulatorNavi) {
+            Log.i("result","模拟");
             // 设置模拟速度
             AMapNavi.getInstance(this).setEmulatorNaviSpeed(100);
             // 开启模拟导航
             AMapNavi.getInstance(this).startNavi(AMapNavi.EmulatorNaviMode);
 
         } else {
+            Log.i("result","实时");
             // 开启实时导航
             AMapNavi.getInstance(this).startNavi(AMapNavi.GPSNaviMode);
         }

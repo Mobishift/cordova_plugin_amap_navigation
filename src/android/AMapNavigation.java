@@ -26,10 +26,15 @@ public class AMapNavigation extends CordovaPlugin {
             this.callbackContext = callbackContext;
             Intent intent = new Intent();
             intent.setClass(this.cordova.getActivity().getApplicationContext(), NavigationActivity.class);
+            Log.i("result",args.getString(0));
+            Log.i("result",args.getString(1));
+            Log.i("result",args.getString(2));
+            Log.i("result",args.getString(3));
             intent.putExtra("NaviStartLng", args.getString(0));
             intent.putExtra("NaviStartLat", args.getString(1));
             intent.putExtra("NaviEndLng", args.getString(2));
             intent.putExtra("NaviEndLat", args.getString(3));
+            Log.i("result","cordova");
             this.cordova.startActivityForResult((CordovaPlugin) this, intent, 100);
             return true;
         }
