@@ -13,8 +13,8 @@
         <source-file src="src/ios/AMapNavigation.m"/>
         <source-file src="src/ios/AMapNaviKit.framework" framework="true"/>
 
-        <resource-file src="src/ios/AMapNaviKit.framework/Resouces/AMap.bundle"/>
-        <resource-file src="src/ios/AMapNaviKit.framework/Resouces/AMapNavi.bundle"/>
+        <resource-file src="src/ios/AMap.bundle"/>
+        <resource-file src="src/ios/AMapNavi.bundle"/>
 
         <framework src="AudioToolbox.framework" />
         <framework src="AVFoundation.framework" />
