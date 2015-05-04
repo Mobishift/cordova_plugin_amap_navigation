@@ -28,7 +28,32 @@
                 <param name="android-package" value="com.mobishift.cordova.plugins.amapnavigation.AMapNavigation"/>
             </feature>
         </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml"/>
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+        </config-file>
         <source-file src="src/android/AMapNavigation.java" target-dir="src/com/mobishift/cordova/plugins/amapnavigation/AMapNavigation"/>
+        <source-file src="src/android/MainActivity.java" target-dir="src/com/mobishift/cordova/plugins/navigationService" />
+
+        <source-file src="src/android/libs/armeabi/libamapv304.so" target-dir="libs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libamapv304ex.so" target-dir="libs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="libs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libtbt.so" target-dir="libs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libwtbt.so" target-dir="libs/armeabi" />
+
+        <source-file src="src/android/libs/armeabi/libamapv304.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/libs/armeabi/libamapv304ex.so" target-dir="libs/armeabi-v7a" />
+
+        <source-file src="src/android/libs/armeabi/AMap_3DMap_V2.4.1.jar" target-dir="libs" />
+        <source-file src="src/android/libs/armeabi/Android_Navi_V1.1.2.jar" target-dir="libs" />
     </platform>
 </plugin>
