@@ -2,6 +2,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Cordova/CDV.h>
+#import <AVFoundation/AVFoundation.h>
+
 #import <AMapNaviKit/AMapNaviKit.h>
 #import <AMapNaviKit/MAMapKit.h>
 
@@ -17,6 +19,7 @@
 @property (nonatomic, strong)AMapNaviViewController*    naviViewController;
 @property (nonatomic, strong)AMapNaviPoint*             startPoint;
 @property (nonatomic, strong)AMapNaviPoint*             endPoint;
+@property (nonatomic, strong)AVSpeechSynthesizer*       speechSynthesizer;
 
 - (void)navigation:(CDVInvokedUrlCommand*)command;
 - (void)returnSuccess;
@@ -92,6 +95,12 @@
     }
 }
 
+- (void)initSpeecher{
+    if(self.speechSynthesizer == nil){
+        self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    }
+}
+
 - (void)initNaviViewController{
     if(_naviViewController == nil){
         _naviViewController = [[AMapNaviViewController alloc] initWithMapView:self.mapView delegate:self];
@@ -115,7 +124,7 @@
 
 - (void)AMapNaviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager
 {
-    // 初始化语音引擎
+    [self initSpeecher];
     [self.naviManager presentNaviViewController:self.naviViewController animated:YES];
 }
 
@@ -132,6 +141,9 @@
 
 - (void)AMapNaviViewControllerCloseButtonClicked:(AMapNaviViewController *)naviViewController
 {
+    if(self.speechSynthesizer.isSpeaking){
+        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    }
     [self.naviManager stopNavi];
     [self.naviManager dismissNaviViewControllerAnimated:YES];
     [self returnSuccess];
@@ -212,7 +224,16 @@
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager playNaviSoundString:(NSString *)soundString soundStringType:(AMapNaviSoundType)soundStringType
 {
+    if(self.speechSynthesizer.isSpeaking){
+        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    }
+    AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:soundString];
+    utterance.rate = 0.1;
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
+    [self.speechSynthesizer speakUtterance:utterance];
+    
     NSLog(@"playNaviSoundString:{%ld:%@}", (long)soundStringType, soundString);
+    
 }
 
 - (void)AMapNaviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager
