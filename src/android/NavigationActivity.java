@@ -1,16 +1,18 @@
-package com.mobishift.cordova.plugins.amapnavigation;
+package com.mobishift.cordova.plugins.navigationService;
 
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import android.util.Log;
+
+import com.mobishift.cordova.plugins.navigationService.TTSController;
 
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
@@ -59,7 +61,6 @@ public class NavigationActivity extends Activity implements
         l.addView(mAmapAMapNaviView, lp);
 
         setContentView(l);
-
         //Bundle bundle = getIntent().getExtras();
         //processBundle(bundle);
         init(savedInstanceState);
@@ -84,7 +85,7 @@ public class NavigationActivity extends Activity implements
         //mAmapAMapNaviView = (AMapNaviView) findViewById(R.id.simplenavimap);
         mAmapAMapNaviView.onCreate(savedInstanceState);
         mAmapAMapNaviView.setAMapNaviViewListener(this);
-        //TTSController.getInstance(this).startSpeaking();
+        TTSController.getInstance(this).startSpeaking();
 
         AMapNavi.getInstance(this).calculateDriveRoute(mStartPoints,
                 mEndPoints, null, AMapNavi.DrivingDefault);

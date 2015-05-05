@@ -45,8 +45,14 @@
             <uses-permission android:name="android.permission.WAKE_LOCK" />
             <uses-permission android:name="android.permission.WRITE_SETTINGS" />
         </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="YOUR_API_KEY" />
+        </config-file>
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
-            <activity android:name="com.mobishift.cordova.plugins.amapnavigation.NavigationActivity" />
+            <activity android:name="com.mobishift.cordova.plugins.navigationService.NavigationActivity" />
+            <activity android:name="com.mobishift.cordova.plugins.navigationService.TTSController" />
         </config-file>
         <source-file src="src/android/AMapNavigation.java" target-dir="src/com/mobishift/cordova/plugins/amapnavigation/AMapNavigation"/>
         <source-file src="src/android/NavigationActivity.java" target-dir="src/com/mobishift/cordova/plugins/navigationService" />
