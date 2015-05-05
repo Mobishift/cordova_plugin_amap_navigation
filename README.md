@@ -12,7 +12,9 @@
 
 在项目的config.xml中加入：
 
+```xml
 <preference name="amapapikey" value="你的高德地图IOS api key" />
+```
 
 ## 使用
 
