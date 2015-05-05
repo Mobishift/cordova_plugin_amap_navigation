@@ -52,11 +52,9 @@
         </config-file>
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <activity android:name="com.mobishift.cordova.plugins.navigationService.NavigationActivity" />
-            <activity android:name="com.mobishift.cordova.plugins.navigationService.TTSController" />
         </config-file>
         <source-file src="src/android/AMapNavigation.java" target-dir="src/com/mobishift/cordova/plugins/amapnavigation/AMapNavigation"/>
         <source-file src="src/android/NavigationActivity.java" target-dir="src/com/mobishift/cordova/plugins/navigationService" />
-        <source-file src="src/android/TTSController.java" target-dir="src/com/mobishift/cordova/plugins/navigationService" />
 
         <source-file src="src/android/libs/armeabi/libamapv304.so" target-dir="libs/armeabi" />
         <source-file src="src/android/libs/armeabi/libamapv304ex.so" target-dir="libs/armeabi" />
