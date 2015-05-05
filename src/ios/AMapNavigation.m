@@ -224,16 +224,16 @@
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager playNaviSoundString:(NSString *)soundString soundStringType:(AMapNaviSoundType)soundStringType
 {
-    if(self.speechSynthesizer.isSpeaking){
-        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
-    }
-    AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:soundString];
-    utterance.rate = 0.1;
-    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
-    [self.speechSynthesizer speakUtterance:utterance];
-    
-    NSLog(@"playNaviSoundString:{%ld:%@}", (long)soundStringType, soundString);
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        if(self.speechSynthesizer.isSpeaking){
+            [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+        }
+        AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:soundString];
+        utterance.rate = 0.1;
+        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
+        [self.speechSynthesizer speakUtterance:utterance];
+    });
+    // NSLog(@"playNaviSoundString:{%ld:%@}", (long)soundStringType, soundString);
 }
 
 - (void)AMapNaviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager
