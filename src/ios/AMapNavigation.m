@@ -208,7 +208,7 @@
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager onArrivedWayPoint:(int)wayPointIndex
 {
-    NSLog(@"onArrivedWayPoint");
+    [self.naviManager readNaviInfoManual];
 }
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager didUpdateNaviLocation:(AMapNaviLocation *)naviLocation
@@ -240,7 +240,7 @@
     if(self.speechSynthesizer.isSpeaking){
         [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
     }
-    AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:soundString];
+    AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:text];
     utterance.rate = 0.1;
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
     [self.speechSynthesizer speakUtterance:utterance];
