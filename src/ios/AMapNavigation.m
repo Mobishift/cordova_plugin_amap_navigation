@@ -187,7 +187,8 @@
 
 - (void)AMapNaviManagerNeedRecalculateRouteForYaw:(AMapNaviManager *)naviManager
 {
-    NSLog(@"NeedReCalculateRouteForYaw");
+    [self speak: @"您已偏航，正在重新规划路径"];
+    [self.naviManager recalculateDriveRouteWithDrivingStrategy:]
 }
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager didStartNavi:(AMapNaviMode)naviMode
@@ -225,13 +226,7 @@
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager playNaviSoundString:(NSString *)soundString soundStringType:(AMapNaviSoundType)soundStringType
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        if(self.speechSynthesizer.isSpeaking){
-            [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
-        }
-        AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:soundString];
-        utterance.rate = 0.1;
-        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
-        [self.speechSynthesizer speakUtterance:utterance];
+        [self speak: soundString];
     });
     // NSLog(@"playNaviSoundString:{%ld:%@}", (long)soundStringType, soundString);
 }
@@ -239,6 +234,16 @@
 - (void)AMapNaviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager
 {
     NSLog(@"DidUpdateTrafficStatuses");
+}
+
+- (void)speak:(NSString*)text{
+    if(self.speechSynthesizer.isSpeaking){
+        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    }
+    AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:soundString];
+    utterance.rate = 0.1;
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
+    [self.speechSynthesizer speakUtterance:utterance];
 }
 
 @end
