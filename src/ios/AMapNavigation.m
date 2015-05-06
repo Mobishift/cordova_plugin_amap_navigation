@@ -188,7 +188,7 @@
 - (void)AMapNaviManagerNeedRecalculateRouteForYaw:(AMapNaviManager *)naviManager
 {
     [self speak: @"您已偏航，正在重新规划路径"];
-    [self.naviManager recalculateDriveRouteWithDrivingStrategy:]
+    [self.naviManager recalculateDriveRouteWithDrivingStrategy:AMapNaviDrivingStrategyDefault];
 }
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager didStartNavi:(AMapNaviMode)naviMode
@@ -203,7 +203,7 @@
 
 - (void)AMapNaviManagerOnArrivedDestination:(AMapNaviManager *)naviManager
 {
-    NSLog(@"OnArrivedDestination");
+    [self returnSuccess];
 }
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager onArrivedWayPoint:(int)wayPointIndex
@@ -247,4 +247,3 @@
 }
 
 @end
-
