@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="22ba250d-9c26-45de-a2ec-7b0638300cbb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/android/TTSController.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/android/NavigationActivity.java" afterPath="$PROJECT_DIR$/src/android/NavigationActivity.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/android/libs/armeabi/Android_Location_V1.3.2.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin.xml" afterPath="$PROJECT_DIR$/plugin.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -28,22 +27,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="plugin.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="plugin.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/plugin.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="48" selection-start="2813" selection-end="2835" vertical-scroll-proportion="-8.730769" vertical-offset="508" max-vertical-offset="1155">
+            <state line="58" column="63" selection-start="3449" selection-end="3449" vertical-scroll-proportion="0.5096582" vertical-offset="527" max-vertical-offset="1200">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AMapNavigation.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AMapNavigation.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/android/AMapNavigation.java">
           <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="226" selection-end="226" vertical-scroll-proportion="0.18209408" vertical-offset="0" max-vertical-offset="870">
+            <state line="6" column="26" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="900">
               <folding />
             </state>
           </provider>
@@ -52,7 +51,7 @@
       <file leaf-file-name="AMapNavigation.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/AMapNavigation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="38" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+            <state line="7" column="38" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="405">
               <folding />
             </state>
           </provider>
@@ -61,7 +60,7 @@
       <file leaf-file-name="NavigationActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/android/NavigationActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="30" selection-start="233" selection-end="233" vertical-scroll-proportion="-3.6153846" vertical-offset="26" max-vertical-offset="4875">
+            <state line="8" column="30" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="4875">
               <folding />
             </state>
           </provider>
@@ -87,15 +86,15 @@
       <list>
         <option value="$PROJECT_DIR$/src/android/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/android/libs/TTSController.java" />
-        <option value="$PROJECT_DIR$/src/android/AMapNavigation.java" />
         <option value="$PROJECT_DIR$/src/android/NavigationActivity.java" />
+        <option value="$PROJECT_DIR$/src/android/AMapNavigation.java" />
         <option value="$PROJECT_DIR$/plugin.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="52" />
-    <option name="y" value="148" />
+    <option name="x" value="40" />
+    <option name="y" value="23" />
     <option name="width" value="1400" />
     <option name="height" value="809" />
   </component>
@@ -210,6 +209,36 @@
               <option name="myItemId" value="libs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="armeabi-v7a" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cordova_plugin_amap_navigation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cordova_plugin_amap_navigation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="armeabi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -220,10 +249,15 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../letingche_user_client" />
   </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <PyConsoleSettings />
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/android" />
       <recent name="$PROJECT_DIR$/src/android/libs/armeabi" />
+      <recent name="$PROJECT_DIR$/src/android" />
       <recent name="$PROJECT_DIR$/src/android/libs/armeabi-v7a" />
     </key>
   </component>
@@ -381,6 +415,23 @@
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="22ba250d-9c26-45de-a2ec-7b0638300cbb" name="Default" comment="" />
@@ -390,7 +441,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="52" y="148" width="1400" height="809" extended-state="0" />
+    <frame x="40" y="23" width="1400" height="809" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -447,6 +498,13 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/android/NavigationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="30" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="4875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/android/AMapNavigation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="56" selection-start="619" selection-end="619" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="630">
@@ -518,16 +576,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plugin.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="48" selection-start="2813" selection-end="2835" vertical-scroll-proportion="-8.730769" vertical-offset="508" max-vertical-offset="1155">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/android/NavigationActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="30" selection-start="233" selection-end="233" vertical-scroll-proportion="-3.6153846" vertical-offset="26" max-vertical-offset="4875">
+        <state line="8" column="30" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="4875">
           <folding />
         </state>
       </provider>
@@ -544,7 +595,14 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="226" selection-end="226" vertical-scroll-proportion="0.18209408" vertical-offset="0" max-vertical-offset="870">
+        <state line="6" column="26" selection-start="193" selection-end="193" vertical-scroll-proportion="-0.0" vertical-offset="90" max-vertical-offset="900">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="63" selection-start="3449" selection-end="3449" vertical-scroll-proportion="0.5096582" vertical-offset="527" max-vertical-offset="1200">
           <folding />
         </state>
       </provider>

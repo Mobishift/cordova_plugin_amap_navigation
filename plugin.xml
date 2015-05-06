@@ -71,6 +71,5 @@
         <source-file src="src/android/libs/armeabi/AMap_3DMap_V2.4.1.jar" target-dir="libs" />
         <source-file src="src/android/libs/armeabi/Android_Navi_V1.1.2.jar" target-dir="libs" />
         <source-file src="src/android/libs/armeabi/Msc.jar" target-dir="libs" />
-        <source-file src="src/android/libs/armeabi/Android_Location_V1.3.2.jar" target-dir="libs" />
     </platform>
 </plugin>
