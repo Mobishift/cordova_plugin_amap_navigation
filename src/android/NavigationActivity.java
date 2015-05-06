@@ -277,7 +277,7 @@ public class NavigationActivity extends Activity implements
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
         }
-        return super.onKeyDown(keyCode, event);
+        return true;
     }
 
     // ------------------------------生命周期方法---------------------------
