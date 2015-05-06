@@ -214,6 +214,7 @@
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager didUpdateNaviLocation:(AMapNaviLocation *)naviLocation
 {
     //    NSLog(@"didUpdateNaviLocation");
+    [self.naviManager readNaviInfoManual];
 }
 
 - (BOOL)AMapNaviManagerGetSoundPlayState:(AMapNaviManager *)naviManager
