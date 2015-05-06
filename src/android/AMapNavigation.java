@@ -12,6 +12,8 @@ import android.content.Intent;
 
 import android.util.Log;
 
+import com.mobishift.cordova.plugins.navigationService.NavigationActivity;
+
 /**
  * This class echoes a string called from JavaScript.
  */
