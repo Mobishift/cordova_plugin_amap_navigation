@@ -268,17 +268,6 @@ public class NavigationActivity extends Activity implements
     public void onScanViewButtonClick() {
         // TODO Auto-generated method stub
     }
-    /**
-     *
-     * 返回键监听事件
-     * */
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-        }
-        return true;
-    }
 
     // ------------------------------生命周期方法---------------------------
     @Override
