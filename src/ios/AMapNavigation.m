@@ -22,7 +22,8 @@
 @property (nonatomic, strong)AVSpeechSynthesizer*       speechSynthesizer;
 
 - (void)navigation:(CDVInvokedUrlCommand*)command;
-- (void)returnSuccess;
+- (void)returnSuccess:(int)status;
+- (void)keepReturnPoint:(AMapNaviPoint*)point;
 - (void)returnError:(NSString*) message;
 @end
 
@@ -33,21 +34,21 @@
     callbackId = command.callbackId;
     [AMapNaviServices sharedServices].apiKey = [self amapApiKey];
     [MAMapServices sharedServices].apiKey = [self amapApiKey];
-    
+
     CGFloat startLng = [[command.arguments objectAtIndex:0] doubleValue];
     CGFloat startLat = [[command.arguments objectAtIndex:1] doubleValue];
     CGFloat endLng = [[command.arguments objectAtIndex:2] doubleValue];
     CGFloat endLat = [[command.arguments objectAtIndex:3] doubleValue];
-    
+
     [self initMapView];
     [self initManager];
     [self initNaviViewController];
-    
+
     AMapNaviPoint* startPoint = [AMapNaviPoint locationWithLatitude:startLat longitude:startLng];
     AMapNaviPoint* endPoint = [AMapNaviPoint locationWithLatitude:endLat longitude:endLng];
     [self calculateRoute:startPoint endPoint:endPoint];
-    
-    
+
+
     //    CDVPluginResult* pluginResult = nil;
     //    NSString* echo = [command.arguments objectAtIndex:0];
     //
@@ -60,15 +61,27 @@
     //    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)returnSuccess{
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    
+- (void)returnSuccess:(int)status{
+
+    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:status], @"status", nil];
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dictionary];
+
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
+- (void)keepReturnPoint:(AMapNaviPoint*)point{
+
+    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:point.longitude], @"lng", [NSNumber numberWithFloat:point.latitude], @"lat", [NSNumber numberWithInt:1], @"status", nil];
+
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dictionary];
+    [result setKeepCallbackAsBool:YES];
+
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 }
 
 - (void)returnError:(NSString *)message{
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:message];
-    
+
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 }
 
@@ -110,7 +123,7 @@
 - (void)calculateRoute:(AMapNaviPoint*)startPoint endPoint:(AMapNaviPoint*)endPoint{
     NSArray* startPoints = @[startPoint];
     NSArray* endPoints = @[endPoint];
-    
+
 //    [self.naviManager calculateDriveRouteWithEndPoints:endPoints wayPoints:nil drivingStrategy:0];
     [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
 }
@@ -135,7 +148,14 @@
     [self returnError:[NSString stringWithFormat:@"规划路径错误:%@", error]];
 }
 
-
+-(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation
+updatingLocation:(BOOL)updatingLocation
+{
+    if(updatingLocation)
+    {
+        NSLog(@"latitude : %f,longitude: %f",userLocation.coordinate.latitude,userLocation.coordinate.longitude);
+    }
+}
 
 #pragma mark - AManNaviViewController Delegate
 
@@ -146,7 +166,7 @@
     }
     [self.naviManager stopNavi];
     [self.naviManager dismissNaviViewControllerAnimated:YES];
-    [self returnSuccess];
+    [self returnSuccess: -1];
 }
 
 
@@ -203,7 +223,7 @@
 
 - (void)AMapNaviManagerOnArrivedDestination:(AMapNaviManager *)naviManager
 {
-    [self returnSuccess];
+    [self returnSuccess: 0];
 }
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager onArrivedWayPoint:(int)wayPointIndex
@@ -214,13 +234,15 @@
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager didUpdateNaviLocation:(AMapNaviLocation *)naviLocation
 {
     //    NSLog(@"didUpdateNaviLocation");
+
+    [self keepReturnPoint:naviLocation.coordinate];
     [self.naviManager readNaviInfoManual];
 }
 
 - (BOOL)AMapNaviManagerGetSoundPlayState:(AMapNaviManager *)naviManager
 {
     //    NSLog(@"GetSoundPlayState");
-    
+
     return 0;
 }
 
