@@ -2,6 +2,7 @@ package com.mobishift.cordova.plugins.amapnavigation;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +13,7 @@ import android.content.Intent;
 
 import android.util.Log;
 
+import com.amap.api.navi.model.NaviLatLng;
 import com.mobishift.cordova.plugins.navigationService.NavigationActivity;
 
 /**
@@ -19,12 +21,14 @@ import com.mobishift.cordova.plugins.navigationService.NavigationActivity;
  */
 public class AMapNavigation extends CordovaPlugin {
     private CallbackContext callbackContext;
+    private static AMapNavigation mapNavigation = null;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("navigation")) {
             Log.i("result","Navigation");
             //String message = args.getString(0);
+            mapNavigation = this;
             this.callbackContext = callbackContext;
             Intent intent = new Intent();
             intent.setClass(this.cordova.getActivity().getApplicationContext(), NavigationActivity.class);
@@ -45,10 +49,39 @@ public class AMapNavigation extends CordovaPlugin {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if(resultCode == Activity.RESULT_OK){
-            callbackContext.success("success");
-        }else{
-            callbackContext.error("error");
+        if(requestCode == 100){
+            JSONObject json = new JSONObject();
+            try{
+                if(resultCode == Activity.RESULT_CANCELED){
+                    json.put("status", -1);
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json);
+                    callbackContext.sendPluginResult(pluginResult);
+                }else{
+                    json.put("status", 0);
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json);
+                    callbackContext.sendPluginResult(pluginResult);
+                }
+            }catch (JSONException ex){
+                Log.e("AMapNavigation.onActivityResult", ex.getMessage());
+            }
         }
+    }
+
+    public void keepCallback(NaviLatLng point){
+        JSONObject json = new JSONObject();
+        try{
+            json.put("status", 1);
+            json.put("lat", point.getLatitude());
+            json.put("lng", point.getLongitude());
+        }catch (JSONException ex){
+            Log.e("AMapNavigation.keepCallback", ex.getMessage());
+        }
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json);
+        pluginResult.setKeepCallback(true);
+        callbackContext.sendPluginResult(pluginResult);
+    }
+
+    public static AMapNavigation getInstance(){
+        return mapNavigation;
     }
 }

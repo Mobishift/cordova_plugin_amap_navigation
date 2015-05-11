@@ -25,6 +25,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.SpeechUtility;
+import com.mobishift.cordova.plugins.amapnavigation.AMapNavigation;
 
 public class NavigationActivity extends Activity implements
         AMapNaviListener,AMapNaviViewListener{
@@ -37,7 +38,7 @@ public class NavigationActivity extends Activity implements
 
     //起点终点
     private NaviLatLng mNaviStart;
-	private NaviLatLng mNaviEnd;
+    private NaviLatLng mNaviEnd;
     //起点终点列表
     private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
     private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
@@ -198,7 +199,7 @@ public class NavigationActivity extends Activity implements
     @Override
     public void onLocationChange(AMapNaviLocation arg0) {
         // TODO Auto-generated method stub
-
+        AMapNavigation.getInstance().keepCallback(arg0.getCoord());
     }
 
     @Override
@@ -241,6 +242,7 @@ public class NavigationActivity extends Activity implements
 //                MainStartActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //        startActivity(intent);
+        this.setResult(RESULT_CANCELED);
         finish();
     }
 
