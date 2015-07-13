@@ -80,7 +80,8 @@ public class NavigationActivity extends Activity implements
         AMapNavi.getInstance(this).calculateDriveRoute(mStartPoints,
                 mEndPoints, null, AMapNavi.DrivingDefault);
         Log.i("result","注册");
-        SpeechUtility.createUtility(this, SpeechConstant.APPID +"=54bc8624");
+
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=" + AMapNavigation.cordovaWebView.getPreferences().getString("iflytekappid", ""));
         mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
         // 设置发音人
         mSpeechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");

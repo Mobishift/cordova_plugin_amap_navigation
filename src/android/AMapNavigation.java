@@ -2,6 +2,7 @@ package com.mobishift.cordova.plugins.amapnavigation;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
@@ -12,7 +13,6 @@ import android.app.Activity;
 import android.content.Intent;
 
 import android.util.Log;
-
 import com.amap.api.navi.model.NaviLatLng;
 import com.mobishift.cordova.plugins.navigationService.NavigationActivity;
 
@@ -22,9 +22,11 @@ import com.mobishift.cordova.plugins.navigationService.NavigationActivity;
 public class AMapNavigation extends CordovaPlugin {
     private CallbackContext callbackContext;
     private static AMapNavigation mapNavigation = null;
+    public static CordovaWebView cordovaWebView = null;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        cordovaWebView = webView;
         if (action.equals("navigation")) {
             Log.i("result","Navigation");
             //String message = args.getString(0);
