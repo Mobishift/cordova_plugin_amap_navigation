@@ -14,6 +14,7 @@
 
 ```xml
 <preference name="amapapikey" value="你的高德地图IOS api key" />
+<preference name="iflytekappid" value="你的科大讯飞语音合成app id" />
 ```
 
 ## 使用
