@@ -64,11 +64,11 @@
         <source-file src="src/android/libs/armeabi-v7a/libamapv304.so" target-dir="libs/armeabi-v7a" />
         <source-file src="src/android/libs/armeabi-v7a/libamapv304ex.so" target-dir="libs/armeabi-v7a" />
         <!-- arm64-v8a -->
-        <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="libs/armeabi-v8a" />
-        <source-file src="src/android/libs/armeabi/libtbt.so" target-dir="libs/armeabi-v8a" />
-        <source-file src="src/android/libs/armeabi/libwtbt.so" target-dir="libs/armeabi-v8a" />
-        <source-file src="src/android/libs/armeabi-v8a/libamapv304.so" target-dir="libs/armeabi-v8a" />
-        <source-file src="src/android/libs/armeabi-v8a/libamapv304ex.so" target-dir="libs/armeabi-v8a" />
+        <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="libs/arm64-v8a" />
+        <source-file src="src/android/libs/armeabi/libtbt.so" target-dir="libs/arm64-v8a" />
+        <source-file src="src/android/libs/armeabi/libwtbt.so" target-dir="libs/arm64-v8a" />
+        <source-file src="src/android/libs/arm64-v8a/libamapv304.so" target-dir="libs/arm64-v8a" />
+        <source-file src="src/android/libs/arm64-v8a/libamapv304ex.so" target-dir="libs/arm64-v8a" />
         <!-- x86 -->
         <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="libs/x86" />
         <source-file src="src/android/libs/armeabi/libtbt.so" target-dir="libs/x86" />
