@@ -8,7 +8,7 @@
 #import <AMapNaviKit/MAMapKit.h>
 
 
-@interface AMapNavigation : CDVPlugin <MAMapViewDelegate, AMapNaviViewControllerDelegate>{
+@interface AMapNavigation : CDVPlugin <MAMapViewDelegate, AMapNaviViewControllerDelegate, AMapNaviViewControllerDelegate>{
     // Member variables go here.
     NSString* callbackId;
 }
