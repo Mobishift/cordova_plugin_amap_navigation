@@ -77,7 +77,7 @@
         <source-file src="src/android/libs/x86/libamapv304ex.so" target-dir="libs/x86" />
 
 
-        <source-file src="src/android/libs/armeabi/Android_Map_V2.5.0.jar" target-dir="libs" />
-        <source-file src="src/android/libs/armeabi/NavigationApi_1.2.0.jar" target-dir="libs" />
+        <source-file src="src/android/libs/Android_Map_V2.5.0.jar" target-dir="libs" />
+        <source-file src="src/android/libs/NavigationApi_1.2.0.jar" target-dir="libs" />
     </platform>
 </plugin>
