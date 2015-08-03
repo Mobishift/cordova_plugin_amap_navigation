@@ -11,7 +11,10 @@
             </feature>
         </config-file>
         <source-file src="src/ios/AMapNavigation.m"/>
+        <resource-file src="src/ios/AMap.bundle"/>
+        <resource-file src="src/ios/AMapNavi.bundle"/>
 
+        
         <framework src="src/ios/AMapNaviKit.framework" custom="true"/>
         <framework src="AudioToolbox.framework" />
         <framework src="AVFoundation.framework" />
