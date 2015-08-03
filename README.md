@@ -10,6 +10,8 @@
 
 ### IOS
 
+IOS语音播报需要 IOS version >= 7.1
+
 在项目的config.xml中加入：
 
 ```xml
