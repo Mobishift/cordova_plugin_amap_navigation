@@ -47,7 +47,7 @@ public class NavigationActivity extends Activity implements
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("result","onCreate");
+        Log.i("result", "onCreate");
         AMapNavi.getInstance(this).setAMapNaviListener(this);
         Intent intent = getIntent();
         mNaviStart = new NaviLatLng(Float.parseFloat(intent.getStringExtra("NaviStartLat")),Float.parseFloat(intent.getStringExtra("NaviStartLng")));
@@ -91,6 +91,11 @@ public class NavigationActivity extends Activity implements
         mSpeechSynthesizer.setParameter(SpeechConstant.VOLUME, "80");
 
         mSpeechSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+    }
+
+    @Override
+    public boolean onNaviBackClick() {
+        return false;
     }
 
     /**
