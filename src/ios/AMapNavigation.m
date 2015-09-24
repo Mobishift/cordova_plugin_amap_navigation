@@ -8,7 +8,7 @@
 #import <AMapNaviKit/MAMapKit.h>
 
 
-@interface AMapNavigation : CDVPlugin <MAMapViewDelegate, AMapNaviViewControllerDelegate, AMapNaviViewControllerDelegate>{
+@interface AMapNavigation : CDVPlugin <MAMapViewDelegate, AMapNaviViewControllerDelegate, AMapNaviManagerDelegate>{
     // Member variables go here.
     NSString* callbackId;
 }
@@ -128,24 +128,23 @@
     [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
 }
 
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didPresentNaviViewController:(UIViewController *)naviViewController
-{
+- (void)naviManager:(AMapNaviManager *)naviManager didPresentNaviViewController:(UIViewController *)naviViewController{
     [self.naviManager startGPSNavi];
 }
 
 
-- (void)AMapNaviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager
+- (void)naviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager
 {
     [self initSpeecher];
     [self.naviManager presentNaviViewController:self.naviViewController animated:YES];
 }
 
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager onCalculateRouteFailure:(NSError *)error
-{
-//    [self AMapNaviManager:naviManager onCalculateRouteFailure:error];
+- (void)naviManager:(AMapNaviManager *)naviManager onCalculateRouteFailure:(NSError *)error{
     [self returnError:[NSString stringWithFormat:@"规划路径错误:%@", error]];
+}
+
+- (void)naviManager:(AMapNaviManager *)naviManager error:(NSError *)error{
+    [self returnError:[NSString stringWithFormat:@"error:%@", error]];
 }
 
 -(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation
@@ -159,8 +158,7 @@ updatingLocation:(BOOL)updatingLocation
 
 #pragma mark - AManNaviViewController Delegate
 
-- (void)AMapNaviViewControllerCloseButtonClicked:(AMapNaviViewController *)naviViewController
-{
+- (void)naviViewControllerCloseButtonClicked:(AMapNaviViewController *)naviViewController{
     if(self.speechSynthesizer.isSpeaking){
         [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
     }
@@ -169,9 +167,7 @@ updatingLocation:(BOOL)updatingLocation
     [self returnSuccess: -1];
 }
 
-
-- (void)AMapNaviViewControllerMoreButtonClicked:(AMapNaviViewController *)naviViewController
-{
+- (void)naviViewControllerMoreButtonClicked:(AMapNaviViewController *)naviViewController{
     if (self.naviViewController.viewShowMode == AMapNaviViewShowModeCarNorthDirection)
     {
         self.naviViewController.viewShowMode = AMapNaviViewShowModeMapNorthDirection;
@@ -182,80 +178,47 @@ updatingLocation:(BOOL)updatingLocation
     }
 }
 
-
-- (void)AMapNaviViewControllerTrunIndicatorViewTapped:(AMapNaviViewController *)naviViewController
-{
+- (void)naviViewControllerTurnIndicatorViewTapped:(AMapNaviViewController *)naviViewController{
     [self.naviManager readNaviInfoManual];
 }
 
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager error:(NSError *)error
-{
-    [self returnError:[NSString stringWithFormat:@"error:%@", error]];
-}
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didDismissNaviViewController:(UIViewController *)naviViewController
-{
-    NSLog(@"didDismissNaviViewController");
-}
-
-
-- (void)AMapNaviManagerNeedRecalculateRouteForTrafficJam:(AMapNaviManager *)naviManager
-{
-    NSLog(@"NeedReCalculateRouteForTrafficJam");
-}
-
-- (void)AMapNaviManagerNeedRecalculateRouteForYaw:(AMapNaviManager *)naviManager
-{
+- (void)naviManagerNeedRecalculateRouteForYaw:(AMapNaviManager *)naviManager{
     [self speak: @"您已偏航，正在重新规划路径"];
     [self.naviManager recalculateDriveRouteWithDrivingStrategy:AMapNaviDrivingStrategyDefault];
 }
 
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didStartNavi:(AMapNaviMode)naviMode
-{
+- (void)naviManager:(AMapNaviManager *)naviManager didStartNavi:(AMapNaviMode)naviMode{
     NSLog(@"didStartNavi");
 }
 
-- (void)AMapNaviManagerDidEndEmulatorNavi:(AMapNaviManager *)naviManager
-{
+- (void)naviManagerDidEndEmulatorNavi:(AMapNaviManager *)naviManager{
     NSLog(@"DidEndEmulatorNavi");
 }
 
-- (void)AMapNaviManagerOnArrivedDestination:(AMapNaviManager *)naviManager
-{
+- (void)naviManagerOnArrivedDestination:(AMapNaviManager *)naviManager{
+    [self.naviManager readNaviInfoManual];
     [self returnSuccess: 0];
 }
 
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager onArrivedWayPoint:(int)wayPointIndex
-{
+- (void)naviManager:(AMapNaviManager *)naviManager onArrivedWayPoint:(int)wayPointIndex{
     [self.naviManager readNaviInfoManual];
 }
 
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didUpdateNaviLocation:(AMapNaviLocation *)naviLocation
-{
-    //    NSLog(@"didUpdateNaviLocation");
-    
+- (void)naviManager:(AMapNaviManager *)naviManager didUpdateNaviLocation:(AMapNaviLocation *)naviLocation{
     [self keepReturnPoint:naviLocation.coordinate];
-//    [self.naviManager readNaviInfoManual];
 }
 
-- (BOOL)AMapNaviManagerGetSoundPlayState:(AMapNaviManager *)naviManager
-{
-    //    NSLog(@"GetSoundPlayState");
-    
+- (BOOL)naviManagerGetSoundPlayState:(AMapNaviManager *)naviManager{
     return 0;
 }
 
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager playNaviSoundString:(NSString *)soundString soundStringType:(AMapNaviSoundType)soundStringType
-{
+- (void)naviManager:(AMapNaviManager *)naviManager playNaviSoundString:(NSString *)soundString soundStringType:(AMapNaviSoundType)soundStringType{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [self speak: soundString];
     });
-    // NSLog(@"playNaviSoundString:{%ld:%@}", (long)soundStringType, soundString);
 }
 
-- (void)AMapNaviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager
-{
+- (void)naviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager{
     NSLog(@"DidUpdateTrafficStatuses");
 }
 
