@@ -227,7 +227,11 @@ updatingLocation:(BOOL)updatingLocation
         [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
     }
     AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:text];
-    utterance.rate = 0.1;
+    if([[[UIDevice currentDevice] systemVersion] compare:@"9.0" options:NSNumericSearch] != NSOrderedAscending){
+        utterance.rate = 0.4;
+    }else{
+        utterance.rate = 0.1;
+    }
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
     [self.speechSynthesizer speakUtterance:utterance];
 }
