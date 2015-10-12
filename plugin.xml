@@ -57,6 +57,7 @@
         <source-file src="src/android/NavigationActivity.java" target-dir="src/com/mobishift/cordova/plugins/navigationService" />
         <lib-file src="src/android/libs/AMap_3DMap_v2.6.0.jar" />
         <lib-file src="src/android/libs/AMap_Navi_v1.4.0.jar" />
+        <lib-file src="src/android/libs/Msc.jar" />
 
         <source-file src="src/android/libs/armeabi/libamapv304.so" target-dir="libs/armeabi" />
         <source-file src="src/android/libs/armeabi/libamapv304ex.so" target-dir="libs/armeabi" />
