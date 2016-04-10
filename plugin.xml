@@ -4,11 +4,15 @@
     <js-module name="AMapNavigation" src="www/AMapNavigation.js">
         <clobbers target="cordova.plugins.AMapNavigation"/>
     </js-module>
+    <preference name="AMAPAPIKEY"></preference>
+    <preference name="IFLYTEKAPPID"></preference>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="AMapNavigation">
                 <param name="ios-package" value="AMapNavigation"/>
             </feature>
+            <preference name="amapapikey" value="$AMAPAPIKEY"></preference>
+            <preference name="iflytekappid" value="$IFLYTEKAPPID">
         </config-file>
         <source-file src="src/ios/AMapNavigation.m"/>
         
@@ -48,7 +52,7 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="YOUR_API_KEY" />
+            android:value="$AMAPAPIKEY" />
         </config-file>
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <activity android:name="com.mobishift.cordova.plugins.navigationService.NavigationActivity" />
