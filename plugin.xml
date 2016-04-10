@@ -12,7 +12,7 @@
                 <param name="ios-package" value="AMapNavigation"/>
             </feature>
             <preference name="amapapikey" value="$AMAPAPIKEY"></preference>
-            <preference name="iflytekappid" value="$IFLYTEKAPPID">
+            <preference name="iflytekappid" value="$IFLYTEKAPPID"></preference>
         </config-file>
         <source-file src="src/ios/AMapNavigation.m"/>
         
