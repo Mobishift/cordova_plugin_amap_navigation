@@ -4,9 +4,9 @@
     <js-module name="AMapNavigation" src="www/AMapNavigation.js">
         <clobbers target="cordova.plugins.AMapNavigation"/>
     </js-module>
-    <preference name="ANDROIDAMAPKEY" default=""></preference>
-    <preference name="IOSAMAPKEY" default=""></preference>
-    <preference name="IFLYTEKAPPID" default=""></preference>
+    <preference name="ANDROIDAMAPKEY" default="pass"></preference>
+    <preference name="IOSAMAPKEY" default="pass"></preference>
+    <preference name="IFLYTEKAPPID" default="pass"></preference>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="AMapNavigation">
