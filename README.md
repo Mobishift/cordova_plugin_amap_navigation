@@ -2,15 +2,22 @@
 
 使用高德地图sdk进行导航的cordova plugin
 
+## 版本要求
+
+android >= 4.0.0
+ios >= 7.0
+
 ## 开始
 
-```shell
-cordova plugin add https://github.com/Mobishift/cordova_plugin_amap_navigation --variable amapapikey=你的高德地图APIKEY --variable iflytekappid=你的科大讯飞语音合成appid
-```
+### variable
+androidamapkey: 你的高德地图android api key（集成android必须）
+iflytekappid: 你的科大讯飞app id（集成android必须）
+iosamapkey: 你的高德地图ios api key（集成ios必须）
 
-```xml
-<preference name="amapapikey" value="你的高德地图IOS api key" />
-<preference name="iflytekappid" value="你的科大讯飞语音合成app id" />
+### 例子
+
+```shell
+cordova plugin add https://github.com/Mobishift/cordova_plugin_amap_navigation --variable amapapikey=1234 --variable iflytekappid=5678 --valriable iosamapkey=7890
 ```
 
 ## 使用

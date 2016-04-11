@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.mobishift.cordova.plugins.amapnavigation" version="0.2.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="com.mobishift.cordova.plugins.amapnavigation" version="0.3.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>AMapNavigation</name>
     <js-module name="AMapNavigation" src="www/AMapNavigation.js">
         <clobbers target="cordova.plugins.AMapNavigation"/>
     </js-module>
-    <preference name="AMAPAPIKEY"></preference>
-    <preference name="IFLYTEKAPPID"></preference>
+    <preference name="ANDROIDAMAPKEY" default=""></preference>
+    <preference name="IOSAMAPKEY" default=""></preference>
+    <preference name="IFLYTEKAPPID" default=""></preference>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="AMapNavigation">
                 <param name="ios-package" value="AMapNavigation"/>
             </feature>
-            <preference name="amapapikey" value="$AMAPAPIKEY"></preference>
-            <preference name="iflytekappid" value="$IFLYTEKAPPID"></preference>
+            <preference name="amapapikey" value="$IOSAMAPKEY"></preference>
         </config-file>
         <source-file src="src/ios/AMapNavigation.m"/>
         
@@ -32,6 +32,7 @@
             <feature name="AMapNavigation">
                 <param name="android-package" value="com.mobishift.cordova.plugins.amapnavigation.AMapNavigation"/>
             </feature>
+            <preference name="iflytekappid" value="$IFLYTEKAPPID"></preference>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.INTERNET" />
@@ -52,7 +53,7 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="$AMAPAPIKEY" />
+            android:value="$ANDROIDAMAPKEY" />
         </config-file>
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <activity android:name="com.mobishift.cordova.plugins.navigationService.NavigationActivity" />
