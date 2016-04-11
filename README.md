@@ -5,13 +5,16 @@
 ## 版本要求
 
 android >= 4.0.0
+
 ios >= 7.0
 
 ## 开始
 
 ### variable
 androidamapkey: 你的高德地图android api key（集成android必须）
+
 iflytekappid: 你的科大讯飞app id（集成android必须）
+
 iosamapkey: 你的高德地图ios api key（集成ios必须）
 
 ### 例子
