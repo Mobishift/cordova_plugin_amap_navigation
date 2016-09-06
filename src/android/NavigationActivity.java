@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.util.Log;
@@ -15,11 +14,18 @@ import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.AMapNaviViewListener;
+import com.amap.api.navi.model.AMapLaneInfo;
+import com.amap.api.navi.model.AMapNaviCross;
 import com.amap.api.navi.model.AMapNaviInfo;
 import com.amap.api.navi.model.AMapNaviLocation;
+import com.amap.api.navi.model.AMapNaviTrafficFacilityInfo;
+import com.amap.api.navi.model.AimLessModeCongestionInfo;
+import com.amap.api.navi.model.AimLessModeStat;
 import com.amap.api.navi.model.NaviInfo;
 import com.amap.api.navi.model.NaviLatLng;
 
+import com.autonavi.tbt.NaviStaticInfo;
+import com.autonavi.tbt.TrafficFacilityInfo;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -29,7 +35,7 @@ import com.mobishift.cordova.plugins.amapnavigation.AMapNavigation;
 
 public class NavigationActivity extends Activity implements
         AMapNaviListener,AMapNaviViewListener{
-    //导航View
+    //导航View{
     private AMapNaviView mAmapAMapNaviView;
     //是否为模拟导航
     private boolean mIsEmulatorNavi = false;
@@ -164,6 +170,11 @@ public class NavigationActivity extends Activity implements
     public void onArriveDestination() {
         // TODO Auto-generated method stub
         mSpeechSynthesizer.startSpeaking("到达目的地", mTtsListener);
+    }
+
+    @Override
+    public void onArriveDestination(NaviStaticInfo naviStaticInfo) {
+
     }
 
     @Override
@@ -310,7 +321,68 @@ public class NavigationActivity extends Activity implements
     }
 
     @Override
+    public void onNaviViewLoaded() {
+
+    }
+
+    @Override
     public void onNaviInfoUpdate(NaviInfo arg0) {
         // TODO Auto-generated method stub
     }
+
+    @Override
+    public void OnUpdateTrafficFacility(AMapNaviTrafficFacilityInfo aMapNaviTrafficFacilityInfo) {
+
+    }
+
+    @Override
+    public void OnUpdateTrafficFacility(TrafficFacilityInfo trafficFacilityInfo) {
+
+    }
+
+    @Override
+    public void showCross(AMapNaviCross aMapNaviCross) {
+
+    }
+
+    @Override
+    public void hideCross() {
+
+    }
+
+    @Override
+    public void showLaneInfo(AMapLaneInfo[] aMapLaneInfos, byte[] bytes, byte[] bytes1) {
+
+    }
+
+    @Override
+    public void hideLaneInfo() {
+
+    }
+
+    @Override
+    public void onCalculateMultipleRoutesSuccess(int[] ints) {
+
+    }
+
+    @Override
+    public void notifyParallelRoad(int i) {
+
+    }
+
+    @Override
+    public void OnUpdateTrafficFacility(AMapNaviTrafficFacilityInfo[] aMapNaviTrafficFacilityInfos) {
+
+    }
+
+    @Override
+    public void updateAimlessModeStatistics(AimLessModeStat aimLessModeStat) {
+
+    }
+
+    @Override
+    public void updateAimlessModeCongestionInfo(AimLessModeCongestionInfo aimLessModeCongestionInfo) {
+
+    }
+
 }

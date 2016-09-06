@@ -60,33 +60,14 @@
         </config-file>
         <source-file src="src/android/AMapNavigation.java" target-dir="src/com/mobishift/cordova/plugins/amapnavigation"/>
         <source-file src="src/android/NavigationActivity.java" target-dir="src/com/mobishift/cordova/plugins/navigationService" />
-        <lib-file src="src/android/libs/AMap_3DMap_v2.6.0.jar" />
-        <lib-file src="src/android/libs/AMap_Navi_v1.4.0.jar" />
+        <lib-file src="src/android/libs/AMap3DMap_3.4.0_AMapNavi_1.9.2_20160830.jar" />
         <lib-file src="src/android/libs/Msc.jar" />
 
-        <source-file src="src/android/libs/armeabi/libamapv304.so" target-dir="libs/armeabi" />
-        <source-file src="src/android/libs/armeabi/libamapv304ex.so" target-dir="libs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libgdinamapv4sdk752.so" target-dir="libs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libgdinamapv4sdk752ex.so" target-dir="libs/armeabi" />
         <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="libs/armeabi" />
-        <source-file src="src/android/libs/armeabi/libtbt.so" target-dir="libs/armeabi" />
-        <source-file src="src/android/libs/armeabi/libwtbt.so" target-dir="libs/armeabi" />
-        
-        <source-file src="src/android/libs/arm64-v8a/libamapv304.so" target-dir="libs/arm64-v8a" />
-        <source-file src="src/android/libs/arm64-v8a/libamapv304ex.so" target-dir="libs/arm64-v8a" />
-        <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="libs/arm64-v8a" />
-        <source-file src="src/android/libs/armeabi/libtbt.so" target-dir="libs/arm64-v8a" />
-        <source-file src="src/android/libs/armeabi/libwtbt.so" target-dir="libs/arm64-v8a" />
-        
-        <source-file src="src/android/libs/armeabi-v7a/libamapv304.so" target-dir="libs/armeabi-v7a" />
-        <source-file src="src/android/libs/armeabi-v7a/libamapv304ex.so" target-dir="libs/armeabi-v7a" />
-        <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="libs/armeabi-v7a" />
-        <source-file src="src/android/libs/armeabi/libtbt.so" target-dir="libs/armeabi-v7a" />
-        <source-file src="src/android/libs/armeabi/libwtbt.so" target-dir="libs/armeabi-v7a" />
-        
-        <source-file src="src/android/libs/x86/libamapv304.so" target-dir="libs/x86" />
-        <source-file src="src/android/libs/x86/libamapv304ex.so" target-dir="libs/x86" />
-        <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="libs/x86" />
-        <source-file src="src/android/libs/armeabi/libtbt.so" target-dir="libs/x86" />
-        <source-file src="src/android/libs/armeabi/libwtbt.so" target-dir="libs/x86" />
+        <source-file src="src/android/libs/armeabi/libtbt3631.so" target-dir="libs/armeabi" />
+        <source-file src="src/android/libs/armeabi/libwtbt144.so" target-dir="libs/armeabi" />
 
     </platform>
 </plugin>
