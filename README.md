@@ -20,7 +20,7 @@ iosamapkey: 你的高德地图ios api key（集成ios必须）
 ### 例子
 
 ```shell
-cordova plugin add https://github.com/Mobishift/cordova_plugin_amap_navigation --variable amapapikey=1234 --variable iflytekappid=5678 --variable iosamapkey=7890
+cordova plugin add https://github.com/Mobishift/cordova_plugin_amap_navigation --variable androidamapkey=1234 --variable iflytekappid=5678 --variable iosamapkey=7890
 ```
 
 ## 使用
