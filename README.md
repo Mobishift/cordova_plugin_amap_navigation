@@ -1,6 +1,6 @@
 # cordova_plugin_amap_navigation
 
-使用高德地图sdk进行导航的cordova plugin
+使用[高德地图](http://lbs.amap.com/api/android-navi-sdk/summary/)sdk进行导航的cordova plugin
 
 ## 版本要求
 
@@ -45,3 +45,5 @@ cordova.plugins.AMapNavigation.navigation({
 }, successCallback, errorCallback);
 
 ```
+
+注意：调用时需要保证apk包签名与在开放平台的设置相同，否则无法进行导航
