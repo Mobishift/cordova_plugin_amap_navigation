@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.util.Log;
-import android.widget.Toast;
 
 
 import com.amap.api.navi.AMapNavi;
@@ -41,6 +40,9 @@ import com.mobishift.cordova.plugins.amapnavigation.AMapNavigation;
 
 public class NavigationActivity extends Activity implements
         AMapNaviListener,AMapNaviViewListener{
+    private static final String TAG = "NavigationActivity";
+    private static final int REQUEST_CODE = 1234;
+
     //导航View{
     private AMapNaviView mAmapAMapNaviView;
     //是否为模拟导航
@@ -111,7 +113,6 @@ public class NavigationActivity extends Activity implements
     /**
      * 初始化
      *
-     * @param savedInstanceState
      */
     private void init() {
         mStartPoints.add(mNaviStart);
