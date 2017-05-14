@@ -2,18 +2,24 @@ package com.mobishift.cordova.plugins.navigationService;
 
 import java.util.ArrayList;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.AMapNaviViewListener;
+import com.amap.api.navi.enums.NaviType;
 import com.amap.api.navi.model.AMapLaneInfo;
 import com.amap.api.navi.model.AMapNaviCross;
 import com.amap.api.navi.model.AMapNaviInfo;
@@ -64,13 +70,42 @@ public class NavigationActivity extends Activity implements
         l.setLayoutParams(layoutParams);
 
         mAmapAMapNaviView = new AMapNaviView(this);
+        mAmapAMapNaviView.onCreate(savedInstanceState);
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams
                 (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         l.addView(mAmapAMapNaviView, lp);
 
         setContentView(l);
-        init(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(canAccessLocation()) {
+                init();
+            } else {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            }
+        } else {
+            init();
+        }
+    }
+
+    @TargetApi(23)
+    private boolean canAccessLocation() {
+        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE:
+                if(canAccessLocation()) {
+                    init();
+                } else {
+                    Log.w(TAG, "没有定位权限");
+                    this.onDestroy();
+                }
+        }
     }
 
     /**
@@ -78,10 +113,9 @@ public class NavigationActivity extends Activity implements
      *
      * @param savedInstanceState
      */
-    private void init(Bundle savedInstanceState) {
+    private void init() {
         mStartPoints.add(mNaviStart);
         mEndPoints.add(mNaviEnd);
-        mAmapAMapNaviView.onCreate(savedInstanceState);
         mAmapAMapNaviView.setAMapNaviViewListener(this);
         AMapNavi.getInstance(this).calculateDriveRoute(mStartPoints,
                 mEndPoints, null, AMapNavi.DrivingDefault);
@@ -157,12 +191,12 @@ public class NavigationActivity extends Activity implements
             // 设置模拟速度
             AMapNavi.getInstance(this).setEmulatorNaviSpeed(100);
             // 开启模拟导航
-            AMapNavi.getInstance(this).startNavi(AMapNavi.EmulatorNaviMode);
+            AMapNavi.getInstance(this).startNavi(NaviType.EMULATOR);
 
         } else {
             Log.i("result","实时");
             // 开启实时导航
-            AMapNavi.getInstance(this).startNavi(AMapNavi.GPSNaviMode);
+            AMapNavi.getInstance(this).startNavi(NaviType.GPS);
         }
     }
 

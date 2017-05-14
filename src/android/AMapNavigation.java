@@ -54,13 +54,15 @@ public class AMapNavigation extends CordovaPlugin {
         if(requestCode == 100){
             JSONObject json = new JSONObject();
             try{
+                PluginResult pluginResult = null;
                 if(resultCode == Activity.RESULT_CANCELED){
                     json.put("status", -1);
-                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json);
-                    callbackContext.sendPluginResult(pluginResult);
+                    pluginResult = new PluginResult(PluginResult.Status.OK, json);
                 }else{
                     json.put("status", 0);
-                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json);
+                    pluginResult = new PluginResult(PluginResult.Status.OK, json);
+                }
+                if (null != callbackContext) {
                     callbackContext.sendPluginResult(pluginResult);
                 }
             }catch (JSONException ex){
