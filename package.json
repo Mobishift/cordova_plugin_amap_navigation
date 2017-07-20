@@ -1,0 +1,35 @@
+{
+    "name": "cordova-plugin-amap-navigation",
+    "description": "",
+    "version": "0.4.1",
+    "homepage": "https://github.com/Mobishift/cordova_plugin_amap_navigation#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Mobishift/cordova_plugin_amap_navigation.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Mobishift/cordova_plugin_amap_navigation/issues"
+    },
+    "cordova": {
+        "id": "cordova-plugin-amap-navigation",
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    },
+    "keywords": [
+        "ecosystem:cordova",
+        "ecosystem:phonegap",
+        "cordova-android",
+        "amap",
+        "navigation"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=5.0.0"
+        }
+    ],
+    "author": "mljsgto222",
+    "license": "MIT"
+}
